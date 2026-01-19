@@ -6,8 +6,22 @@
   * For more info and help: https://bootstrapmade.com/php-email-form/
   */
 
-  // Replace contact@example.com with your real receiving email address
-  $receiving_email_address = 'contact@example.com';
+  // Replace with your real receiving email address
+  $receiving_email_address = 'admin@aihebat.com';
+
+  // Basic security: Check if request is POST
+  if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    die('Method not allowed');
+  }
+
+  // Basic CSRF protection - check referer
+  $allowed_domains = ['aihebat.com', 'www.aihebat.com', 'localhost'];
+  $referer = isset($_SERVER['HTTP_REFERER']) ? parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST) : '';
+  if (!in_array($referer, $allowed_domains) && $referer !== '') {
+    http_response_code(403);
+    die('Forbidden');
+  }
 
   if( file_exists($php_email_form = '../assets/vendor/php-email-form/php-email-form.php' )) {
     include( $php_email_form );
