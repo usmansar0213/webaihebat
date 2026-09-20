@@ -1,9 +1,10 @@
 name: Deploy to Google Cloud Run
 
+# Manual dulu: butuh Workload Identity Pool + secrets
+# (GCP_WORKLOAD_IDENTITY_PROVIDER, GCP_SERVICE_ACCOUNT, GCP_PROJECT_ID).
+# Aktifkan kembali trigger push setelah WIF dikonfigurasi.
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
 
 jobs:
   deploy:
