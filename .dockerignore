@@ -1,0 +1,38 @@
+.git
+.github
+.gitignore
+webaihebat-main
+*.log
+*.tmp
+*.bak
+.vscode
+.DS_Store
+Thumbs.db
+
+# Local throwaway browser profiles (never ship these)
+tmp-chrome-profile/
+tmp-chrome-profile-mobile/
+
+# Secrets / local credentials
+pass smtp
+.env
+.env.*
+!.env.cloudrun.example
+
+# Infra / docs files — must not be served publicly
+Dockerfile
+cloudbuild.yaml
+deploy-cloud.bat
+.env.cloudrun.example
+scripts/
+DEPLOYMENT_*.md
+README.md
+rebranding.txt
+artikel.py
+*.txt
+AI Assesment Readiness
+
+# Keep: wajib tersaji publik untuk SEO & verifikasi Google
+!robots.txt
+!sitemap.xml
+!google591b9bd9d152dc90.html

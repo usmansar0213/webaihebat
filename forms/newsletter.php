@@ -1,39 +1,39 @@
 <?php
-  /**
-  * Requires the "PHP Email Form" library
-  * The "PHP Email Form" library is available only in the pro version of the template
-  * The library should be uploaded to: vendor/php-email-form/php-email-form.php
-  * For more info and help: https://bootstrapmade.com/php-email-form/
-  */
+require_once __DIR__ . '/common.php';
 
-  // Replace contact@example.com with your real receiving email address
-  $receiving_email_address = 'contact@example.com';
+require_post_method();
+enforce_allowed_hosts();
 
-  if( file_exists($php_email_form = '../assets/vendor/php-email-form/php-email-form.php' )) {
-    include( $php_email_form );
-  } else {
-    die( 'Unable to load the "PHP Email Form" Library!');
-  }
+$email = clean_text($_POST['email'] ?? '', 180);
+if ($email === '' || !valid_email($email)) {
+  fail_response('Invalid email address');
+}
 
-  $contact = new PHP_Email_Form;
-  $contact->ajax = true;
-  
-  $contact->to = $receiving_email_address;
-  $contact->from_name = $_POST['email'];
-  $contact->from_email = $_POST['email'];
-  $contact->subject ="New Subscription: " . $_POST['email'];
+$to = env_value('NEWSLETTER_RECEIVING_EMAIL', env_value('CONTACT_RECEIVING_EMAIL', 'admin@aihebat.com'));
+if (!valid_email($to)) {
+  fail_response('Newsletter receiving email is not configured', 500);
+}
 
-  // Uncomment below code if you want to use SMTP to send emails. You need to enter your correct SMTP credentials
-  /*
-  $contact->smtp = array(
-    'host' => 'example.com',
-    'username' => 'example',
-    'password' => 'pass',
-    'port' => '587'
-  );
-  */
+$plain = "New newsletter subscription from AIHebat website\n\n"
+  . "Email: {$email}\n"
+  . "Time: " . gmdate('c') . "\n";
 
-  $contact->add_message( $_POST['email'], 'Email');
+$html = '<h3>New newsletter subscription</h3>'
+  . '<p><strong>Email:</strong> ' . htmlspecialchars($email, ENT_QUOTES, 'UTF-8') . '</p>'
+  . '<p><strong>Time:</strong> ' . gmdate('c') . '</p>';
 
-  echo $contact->send();
+$sent = send_outbound_email($to, '[AIHebat Newsletter] New Subscription', $plain, $html, $email, $email);
+if (!$sent) {
+  fail_response('Unable to process subscription right now. Please try again later.', 502);
+}
+
+$collection = env_value('FIRESTORE_COLLECTION_NEWSLETTER', 'newsletter_subscriptions');
+log_to_firestore($collection, [
+  'email' => $email,
+  'ip' => clean_text($_SERVER['REMOTE_ADDR'] ?? '', 64),
+  'userAgent' => clean_text($_SERVER['HTTP_USER_AGENT'] ?? '', 300),
+  'createdAt' => gmdate('c')
+]);
+
+ok_response();
 ?>

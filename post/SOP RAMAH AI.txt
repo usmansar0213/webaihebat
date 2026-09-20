@@ -1,0 +1,159 @@
+# Apakah SOP Kita Sudah Ramah AI??
+Beberapa hari yang lalu saya memperoleh pengalaman yang cukup membuka mata.
+
+Bersama tim, kami berhasil membangun sebuah aplikasi menggunakan bantuan Artificial Intelligence. Dalam waktu yang relatif singkat, aplikasi tersebut sudah dapat dijalankan, memiliki workflow, business rule, dashboard, hingga berbagai fitur operasional yang dibutuhkan.
+
+Tentu saja aplikasi tersebut belum sempurna.
+
+Masih ada hardcoded configuration, struktur kode yang perlu dirapikan, serta berbagai aspek keamanan dan arsitektur yang memang belum layak untuk langsung digunakan pada lingkungan enterprise.
+
+Karena memang sejak awal tujuan kami bukan membangun aplikasi produksi.
+
+Tujuan kami adalah membangun **Minimum Viable Product (MVP)**.
+
+Ketika aplikasi tersebut kami presentasikan kepada tim IT perusahaan, respons yang kami terima cukup menarik.
+
+Mereka mengatakan bahwa aplikasi tersebut tetap harus dibangun kembali dari awal mengikuti framework, standar keamanan, serta Software Development Lifecycle (SDLC) perusahaan.
+
+Awalnya saya cukup kecewa.
+
+Saya berpikir, "Bukankah akan lebih efisien jika aplikasi yang sudah ada disempurnakan daripada memulai kembali dari nol?"
+
+Namun setelah merenungkannya lebih dalam, saya menyadari bahwa sebenarnya persoalannya bukan pada aplikasi yang kami bangun.
+
+Persoalannya adalah **cara pandang**.
+
+## Dua Paradigma yang Sedang Bertemu
+
+Selama puluhan tahun, dunia software berkembang dengan pola yang relatif sama.
+
+Business Requirement dibuat terlebih dahulu.
+
+Kemudian dilakukan analisis.
+
+Lalu desain.
+
+Dokumentasi.
+
+Baru setelah itu coding dimulai.
+
+Model tersebut sangat masuk akal pada zamannya.
+
+Karena seluruh proses dilakukan secara manual.
+
+Hari ini situasinya berubah.
+
+Dengan AI, prototype aplikasi dapat dihasilkan dalam hitungan jam atau hari.
+
+Business workflow dapat diuji jauh lebih cepat.
+
+User dapat memberikan masukan lebih awal.
+
+Dokumentasi bahkan dapat dihasilkan setelah prototype selesai.
+
+Di sinilah saya melihat adanya pertemuan dua paradigma.
+
+Paradigma pertama mengatakan:
+
+> "Bangun aplikasi setelah seluruh dokumen selesai."
+
+Paradigma kedua mengatakan:
+
+> "Bangun prototype lebih dulu, lalu validasi bersama pengguna."
+
+Keduanya sama-sama ingin menghasilkan aplikasi yang baik.
+
+Yang berbeda hanyalah urutan prosesnya.
+
+## AI Bukan Musuh Governance
+
+Semakin saya pikirkan, semakin saya yakin bahwa AI tidak pernah bertentangan dengan governance.
+
+Yang bertentangan hanyalah urutan kerja yang selama ini kita kenal.
+
+Banyak orang menganggap AI ingin menggantikan proses yang sudah ada.
+
+Padahal menurut saya tidak demikian.
+
+AI hanya menghilangkan pekerjaan yang bersifat repetitif.
+
+AI dapat membantu membuat prototype.
+
+AI dapat membantu membuat dokumentasi.
+
+AI dapat membantu membuat unit test.
+
+Namun AI tidak menggantikan:
+
+* Architecture Review
+* Security Review
+* Performance Review
+* Compliance
+* Audit
+* User Acceptance Test
+
+Semua itu tetap menjadi tanggung jawab manusia.
+
+## Lalu Apa yang Harus Berubah?
+
+Menurut saya, yang perlu berubah bukanlah standar IT.
+
+Yang perlu berubah adalah posisi standar tersebut.
+
+Selama ini framework enterprise sering digunakan setelah aplikasi selesai dibangun.
+
+Padahal di era AI, framework tersebut dapat dijadikan panduan sejak awal.
+
+Bayangkan apabila AI membangun aplikasi dengan terlebih dahulu membaca:
+
+* Secure Coding Guideline
+* API Standard
+* Database Standard
+* Logging Standard
+* Architecture Guideline
+
+Prototype yang dihasilkan tentu akan jauh lebih dekat dengan standar enterprise.
+
+Artinya, tim IT tidak lagi memulai review dari kondisi "mentah", tetapi dari aplikasi yang sejak awal telah mengikuti sebagian besar aturan perusahaan.
+
+## Peran Baru Tim IT
+
+Pengalaman ini juga membuat saya melihat peran tim IT dari sudut pandang yang berbeda.
+
+Di era AI, saya tidak lagi melihat tim IT hanya sebagai reviewer.
+
+Saya melihat mereka sebagai **penjaga pengetahuan organisasi**.
+
+Standar yang mereka miliki bukan lagi sekadar dokumen PDF.
+
+Standar tersebut dapat menjadi "guardrail" yang membimbing AI dalam menghasilkan aplikasi yang sesuai dengan kebutuhan perusahaan.
+
+Dengan kata lain, governance tidak lagi hanya bersifat korektif.
+
+Governance dapat menjadi preventif.
+
+## Pelajaran Terbesar
+
+Kalau ada satu pelajaran yang saya bawa dari pengalaman ini, mungkin kalimatnya sederhana.
+
+**AI tidak mengurangi pentingnya governance.**
+
+**AI mengubah cara artefak perangkat lunak dihasilkan.**
+
+Karena itu, pertanyaan yang seharusnya kita diskusikan bukan lagi:
+
+> "Apakah AI dapat menggantikan SOP?"
+
+Melainkan:
+
+> **"Bagaimana SOP dapat berevolusi agar mampu memanfaatkan AI tanpa mengurangi kualitas yang selama ini kita jaga?"**
+
+Saya percaya, masa depan bukanlah memilih antara AI atau governance.
+
+Masa depan adalah ketika keduanya bekerja bersama.
+
+AI mempercepat lahirnya solusi.
+
+Governance memastikan solusi tersebut layak digunakan oleh organisasi.
+
+Dan menurut saya, di situlah transformasi digital yang sesungguhnya baru dimulai.

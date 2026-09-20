@@ -1,0 +1,1886 @@
+# Product Requirement Document
+
+## Penambahan Fitur **Assessment** pada AIHebat.com
+
+**Dokumen untuk:** Tim Engineering / Web Developer
+**Produk:** AIHebat.com
+**Jenis perubahan:** Penambahan modul konten baru
+**Prioritas:** Medium–High
+**Status:** Proposed
+
+---
+
+## 1. Ringkasan
+
+AIHebat.com perlu menambahkan menu baru bernama **Assessment**.
+
+Assessment merupakan modul publikasi yang berisi hasil observasi, evaluasi, analisis, pembelajaran, dan rekomendasi terkait implementasi Artificial Intelligence di dunia nyata.
+
+Konten Assessment berbeda dari artikel blog biasa. Artikel blog dapat bersifat edukatif, opini, berita, atau tutorial. Assessment memiliki struktur yang lebih sistematis dan diarahkan untuk membantu pembaca memahami:
+
+* situasi yang dianalisis;
+* permasalahan atau gap yang ditemukan;
+* faktor penyebab;
+* insight utama;
+* tingkat atau status hasil assessment;
+* rekomendasi tindak lanjut;
+* pertanyaan refleksi bagi pembaca.
+
+Fitur ini diharapkan menjadi salah satu diferensiasi AIHebat.com sebagai platform yang tidak hanya membahas penggunaan AI, tetapi juga mendokumentasikan pembelajaran nyata dari proses transformasi AI.
+
+---
+
+## 2. Tujuan Pengembangan
+
+Penambahan modul Assessment bertujuan untuk:
+
+1. Menyediakan ruang khusus bagi konten analisis yang lebih terstruktur daripada artikel blog.
+2. Mendokumentasikan pengalaman nyata implementasi AI pada individu, organisasi, dan perusahaan.
+3. Menampilkan insight dan rekomendasi dalam format yang mudah dipahami.
+4. Membangun repositori pengetahuan mengenai AI adoption, AI governance, AI mindset, dan transformasi organisasi.
+5. Memungkinkan konten Assessment ditemukan, difilter, dibagikan, dan dikembangkan secara berkelanjutan.
+6. Menjadi fondasi untuk pengembangan fitur asesmen interaktif pada tahap berikutnya.
+
+---
+
+## 3. Ruang Lingkup MVP
+
+Pada tahap pertama, modul Assessment difokuskan sebagai **content publishing module**, bukan sistem pengisian kuesioner otomatis.
+
+Fungsi yang termasuk dalam MVP:
+
+* menu Assessment pada navigasi utama;
+* halaman daftar Assessment;
+* halaman detail Assessment;
+* kategori Assessment;
+* status atau hasil Assessment;
+* ringkasan eksekutif;
+* insight utama;
+* rekomendasi;
+* pertanyaan refleksi;
+* konten terkait;
+* fungsi share;
+* pengelolaan Assessment melalui admin atau CMS;
+* metadata SEO.
+
+Fungsi berikut belum wajib pada tahap pertama:
+
+* kuesioner interaktif;
+* perhitungan skor otomatis;
+* dashboard organisasi;
+* login khusus pengguna;
+* ekspor laporan PDF;
+* benchmarking antarorganisasi;
+* assessment berbayar.
+
+Fungsi tersebut dapat dikembangkan pada fase berikutnya.
+
+---
+
+## 4. Posisi dalam Struktur Website
+
+Struktur navigasi yang diusulkan:
+
+```text
+Beranda
+Artikel
+Assessment
+Belajar AI
+Tentang
+```
+
+Apabila menu utama sudah terlalu padat, Assessment tetap harus tersedia sebagai menu tingkat pertama atau ditampilkan secara jelas pada menu **Insight**.
+
+URL utama:
+
+```text
+/assessment
+```
+
+URL detail:
+
+```text
+/assessment/{slug}
+```
+
+Contoh:
+
+```text
+/assessment/transformasi-sdlc-di-era-ai
+```
+
+Kategori dapat menggunakan URL:
+
+```text
+/assessment/kategori/{slug}
+```
+
+Contoh:
+
+```text
+/assessment/kategori/enterprise-ai
+```
+
+---
+
+## 5. Definisi Assessment
+
+Assessment adalah konten terstruktur yang menyajikan evaluasi terhadap suatu kondisi, pengalaman, proses, kebijakan, tingkat kesiapan, atau implementasi AI.
+
+Assessment bukan sekadar opini. Konten harus menunjukkan hubungan yang jelas antara:
+
+```text
+Konteks
+↓
+Observasi
+↓
+Gap atau Masalah
+↓
+Analisis
+↓
+Insight
+↓
+Rekomendasi
+```
+
+Contoh judul:
+
+* Transformasi SDLC di Era Artificial Intelligence
+* Mengapa AI Adoption Dimulai dari Mindset
+* Kesiapan Organisasi Mengadopsi AI
+* AI dan Enterprise Governance
+* Kesiapan Pemimpin Menggunakan AI
+* Digital Sovereignty di Era AI
+
+---
+
+## 6. Kategori Assessment
+
+Kategori awal yang disarankan:
+
+### 6.1 AI Mindset
+
+Berisi assessment mengenai pola pikir, kebiasaan, resistensi, dan kesiapan individu dalam memanfaatkan AI.
+
+### 6.2 Enterprise AI
+
+Berisi assessment mengenai implementasi AI di organisasi, software development, arsitektur, governance, security, dan proses bisnis.
+
+### 6.3 AI Leadership
+
+Berisi assessment mengenai kesiapan pemimpin, direksi, manajer, dan pengambil keputusan dalam menghadapi transformasi AI.
+
+### 6.4 AI Readiness
+
+Berisi evaluasi tingkat kesiapan individu atau organisasi dari sisi people, process, technology, data, dan governance.
+
+### 6.5 Digital Sovereignty
+
+Berisi assessment mengenai kepemilikan platform, pengelolaan data, infrastruktur nasional, keamanan, dan kedaulatan digital.
+
+### 6.6 Research Note
+
+Berisi analisis eksploratif, hipotesis, atau pertanyaan terbuka yang belum dimaksudkan sebagai kesimpulan final.
+
+Kategori harus dapat dikelola melalui admin sehingga dapat ditambah, diubah, atau dinonaktifkan tanpa perubahan kode.
+
+---
+
+## 7. Struktur Konten Assessment
+
+Setiap Assessment minimal memiliki field berikut.
+
+### 7.1 Informasi Dasar
+
+* Judul
+* Slug
+* Subjudul atau ringkasan singkat
+* Gambar utama
+* Nama penulis
+* Tanggal publikasi
+* Tanggal pembaruan
+* Estimasi waktu baca
+* Kategori
+* Tag
+* Status publikasi
+* Featured assessment
+* Nomor Assessment, opsional
+
+Contoh:
+
+```text
+Assessment #001
+Transformasi SDLC di Era Artificial Intelligence
+```
+
+### 7.2 Executive Summary
+
+Ringkasan singkat mengenai:
+
+* apa yang dianalisis;
+* temuan utama;
+* dampak;
+* rekomendasi utama.
+
+Bagian ini harus tampil dekat bagian atas halaman.
+
+### 7.3 Latar Belakang
+
+Menjelaskan konteks, situasi, atau pengalaman yang menjadi dasar assessment.
+
+### 7.4 Observasi
+
+Menjelaskan kondisi yang ditemukan berdasarkan pengalaman, data, dokumen, wawancara, atau pengamatan.
+
+### 7.5 Gap atau Permasalahan
+
+Menjelaskan perbedaan antara kondisi saat ini dan kondisi yang diharapkan.
+
+Field ini dapat berbentuk rich text atau tabel.
+
+### 7.6 Analisis
+
+Berisi pembahasan penyebab, hubungan antar-faktor, konsekuensi, dan interpretasi terhadap gap yang ditemukan.
+
+### 7.7 Insight Utama
+
+Satu atau beberapa pernyataan utama yang perlu diingat pembaca.
+
+Contoh:
+
+> AI tidak mengurangi pentingnya governance. AI mengubah cara artefak perangkat lunak dihasilkan.
+
+Bagian ini sebaiknya memiliki desain visual khusus agar mudah ditemukan saat halaman dipindai.
+
+### 7.8 Rekomendasi
+
+Daftar langkah atau keputusan yang disarankan berdasarkan assessment.
+
+Rekomendasi dapat memiliki:
+
+* judul;
+* deskripsi;
+* prioritas;
+* horizon waktu;
+* pihak yang relevan.
+
+### 7.9 Pertanyaan Refleksi
+
+Berisi pertanyaan yang membantu pembaca menghubungkan assessment dengan situasi mereka sendiri.
+
+Contoh:
+
+* Apakah SOP organisasi sudah mengakomodasi AI?
+* Proses apa yang paling mungkin dipercepat dengan AI?
+* Apakah standar IT sudah dapat digunakan sebagai guardrail AI?
+
+### 7.10 Kesimpulan
+
+Ringkasan akhir dan arah tindak lanjut.
+
+### 7.11 Referensi atau Evidence
+
+Opsional, tetapi disarankan untuk Assessment yang menggunakan sumber eksternal.
+
+Dapat berbentuk:
+
+* tautan;
+* nama dokumen;
+* laporan;
+* artikel;
+* studi;
+* bukti internal yang sudah diperbolehkan untuk dipublikasikan.
+
+---
+
+## 8. Status Hasil Assessment
+
+Setiap Assessment dapat memiliki label hasil atau status.
+
+Contoh status awal:
+
+* **Exploratory**
+* **Needs Attention**
+* **Developing**
+* **Ready with Conditions**
+* **Ready**
+* **High Risk**
+* **Not Applicable**
+
+Status harus bersifat opsional karena tidak semua Assessment menghasilkan penilaian tingkat kesiapan.
+
+Status harus dapat dikonfigurasi melalui admin atau konfigurasi aplikasi.
+
+Label tidak boleh hanya mengandalkan warna. Teks status tetap wajib ditampilkan untuk memenuhi accessibility.
+
+---
+
+## 9. Halaman Daftar Assessment
+
+URL:
+
+```text
+/assessment
+```
+
+Halaman harus memiliki:
+
+### Header
+
+* Judul: Assessment
+* Penjelasan singkat mengenai fungsi Assessment
+* Featured Assessment
+
+Contoh deskripsi:
+
+> Kumpulan hasil observasi, analisis, dan pembelajaran mengenai implementasi Artificial Intelligence dalam dunia nyata.
+
+### Daftar Konten
+
+Setiap kartu Assessment menampilkan:
+
+* gambar;
+* kategori;
+* judul;
+* ringkasan;
+* insight singkat;
+* status, jika tersedia;
+* tanggal publikasi;
+* estimasi waktu baca;
+* nama penulis.
+
+### Filter
+
+Minimal tersedia filter berdasarkan:
+
+* kategori;
+* tag;
+* status;
+* tahun publikasi.
+
+### Search
+
+Pencarian berdasarkan:
+
+* judul;
+* ringkasan;
+* isi;
+* tag;
+* kategori.
+
+### Sorting
+
+Pilihan pengurutan:
+
+* terbaru;
+* terlama;
+* paling banyak dibaca;
+* terakhir diperbarui.
+
+Apabila data awal masih sedikit, filter dan sorting dapat disederhanakan pada versi pertama, tetapi struktur backend sebaiknya tetap mendukung pengembangan tersebut.
+
+---
+
+## 10. Halaman Detail Assessment
+
+URL:
+
+```text
+/assessment/{slug}
+```
+
+Urutan tampilan yang disarankan:
+
+1. Breadcrumb
+2. Kategori
+3. Judul
+4. Subjudul
+5. Metadata
+6. Gambar utama
+7. Executive Summary
+8. Insight Utama
+9. Status Assessment, jika tersedia
+10. Isi Assessment
+11. Rekomendasi
+12. Pertanyaan Refleksi
+13. Referensi
+14. Profil penulis
+15. Tombol share
+16. Assessment terkait
+
+Halaman harus nyaman dibaca pada desktop dan mobile.
+
+Lebar area teks disarankan tidak terlalu lebar agar paragraf mudah dibaca. Target ideal sekitar 65–80 karakter per baris.
+
+---
+
+## 11. Komponen UI yang Dibutuhkan
+
+Komponen reusable yang disarankan:
+
+```text
+AssessmentCard
+AssessmentHero
+AssessmentCategoryBadge
+AssessmentStatusBadge
+ExecutiveSummaryBox
+KeyInsightBox
+RecommendationList
+ReflectionQuestionBox
+AssessmentMetadata
+AuthorProfile
+RelatedAssessment
+ShareButtons
+TableOfContents
+```
+
+### Table of Contents
+
+Untuk Assessment yang panjang, halaman detail perlu memiliki daftar isi otomatis berdasarkan heading.
+
+Pada desktop dapat ditampilkan sebagai sidebar yang mengikuti posisi scroll.
+
+Pada mobile dapat dibuat collapsible.
+
+---
+
+## 12. Content Management System
+
+Engineer perlu menggunakan CMS yang sudah tersedia di AIHebat.com. Apabila belum ada CMS, modul Assessment dapat dibangun menggunakan struktur content collection atau database yang konsisten dengan artikel yang sudah ada.
+
+Admin harus dapat:
+
+* membuat Assessment;
+* menyimpan sebagai draft;
+* preview;
+* menjadwalkan publikasi;
+* mengedit;
+* mengarsipkan;
+* menghapus;
+* memilih kategori;
+* menambahkan tag;
+* menetapkan status;
+* menentukan featured content;
+* mengelola SEO;
+* menambahkan related Assessment;
+* mengatur urutan section.
+
+Rich text editor minimal mendukung:
+
+* heading;
+* paragraf;
+* bold dan italic;
+* quote;
+* list;
+* tabel;
+* gambar;
+* link;
+* code block;
+* callout.
+
+---
+
+## 13. Usulan Data Model
+
+Contoh data model konseptual:
+
+```text
+Assessment
+- id
+- assessment_number
+- title
+- slug
+- subtitle
+- excerpt
+- featured_image
+- author_id
+- category_id
+- status_id
+- content
+- executive_summary
+- key_insight
+- recommendations
+- reflection_questions
+- references
+- reading_time
+- is_featured
+- publication_status
+- published_at
+- updated_at
+- created_at
+- seo_title
+- seo_description
+- canonical_url
+```
+
+Relasi:
+
+```text
+Assessment belongsTo Author
+Assessment belongsTo Category
+Assessment belongsTo AssessmentStatus
+Assessment belongsToMany Tags
+Assessment belongsToMany RelatedAssessments
+```
+
+Untuk bagian rekomendasi dan pertanyaan refleksi, engineer dapat menggunakan structured JSON agar lebih mudah ditampilkan dan dikembangkan.
+
+Contoh:
+
+```json
+{
+  "recommendations": [
+    {
+      "title": "Susun Enterprise AI Guideline",
+      "description": "Standar perusahaan perlu disiapkan agar dapat digunakan sebagai guardrail AI.",
+      "priority": "High"
+    }
+  ]
+}
+```
+
+---
+
+## 14. SEO Requirements
+
+Setiap halaman Assessment harus memiliki:
+
+* meta title;
+* meta description;
+* canonical URL;
+* Open Graph title;
+* Open Graph description;
+* Open Graph image;
+* Twitter card;
+* structured data;
+* sitemap entry.
+
+Schema.org yang dapat dipertimbangkan:
+
+* `Article`
+* `TechArticle`
+* `Report`
+
+Pemilihan schema harus disesuaikan dengan jenis konten. Untuk MVP, `Article` atau `TechArticle` sudah memadai.
+
+URL harus bersih dan tidak bergantung pada ID database.
+
+---
+
+## 15. Social Sharing
+
+Sediakan tombol share untuk:
+
+* WhatsApp;
+* LinkedIn;
+* Facebook;
+* X;
+* copy link.
+
+Share text minimal memuat judul dan URL.
+
+Open Graph image harus tampil dengan benar ketika halaman dibagikan melalui WhatsApp dan platform sosial lainnya.
+
+---
+
+## 16. Analytics
+
+Aktivitas berikut perlu dicatat:
+
+* page view;
+* unique visitor;
+* average reading time;
+* scroll depth;
+* click pada rekomendasi;
+* click share;
+* click related Assessment;
+* kategori yang paling banyak dibaca;
+* pencarian yang dilakukan pengguna.
+
+Tracking harus menggunakan solusi analytics yang sudah digunakan AIHebat.com.
+
+Tidak perlu menambahkan platform analytics baru apabila solusi yang ada sudah memenuhi kebutuhan.
+
+---
+
+## 17. Accessibility
+
+Implementasi minimal harus memenuhi:
+
+* struktur heading yang benar;
+* navigasi keyboard;
+* fokus elemen terlihat;
+* label untuk tombol dan form;
+* alt text pada gambar;
+* warna dengan rasio kontras memadai;
+* status tidak hanya dibedakan melalui warna;
+* ukuran font nyaman dibaca;
+* layout responsif.
+
+Target minimum: WCAG 2.1 Level AA pada komponen utama.
+
+---
+
+## 18. Performance
+
+Target performa halaman publik:
+
+* gambar menggunakan format modern dan responsive image;
+* lazy loading untuk gambar non-utama;
+* server-side rendering atau static generation apabila framework mendukung;
+* cache untuk halaman daftar dan detail;
+* pagination atau load more untuk daftar Assessment;
+* tidak menambahkan JavaScript berat tanpa kebutuhan.
+
+Target Core Web Vitals mengikuti standar website yang sudah digunakan AIHebat.com.
+
+---
+
+## 19. Security
+
+Modul Assessment harus mengikuti baseline keamanan website yang sudah ada.
+
+Minimal:
+
+* sanitasi rich text;
+* proteksi XSS;
+* validasi input admin;
+* role-based access untuk pengelolaan konten;
+* CSRF protection untuk perubahan data;
+* audit log untuk publish, edit, dan delete;
+* file upload validation;
+* pembatasan tipe dan ukuran gambar;
+* tidak mengizinkan script atau HTML berbahaya dalam konten.
+
+Hanya pengguna dengan role yang sesuai yang dapat memublikasikan Assessment.
+
+---
+
+## 20. Responsiveness
+
+Halaman harus diuji minimal pada:
+
+* mobile kecil;
+* mobile besar;
+* tablet;
+* laptop;
+* desktop.
+
+Prioritas utama adalah kenyamanan membaca pada perangkat mobile karena kemungkinan besar sebagian besar traffic AIHebat.com berasal dari perangkat tersebut.
+
+---
+
+## 21. Empty State dan Error State
+
+### Empty State
+
+Apabila belum ada Assessment:
+
+> Assessment sedang disiapkan. Nantikan analisis dan pembelajaran terbaru mengenai implementasi AI.
+
+### Search Tidak Ditemukan
+
+> Belum ada Assessment yang sesuai dengan pencarian Anda.
+
+### Error
+
+Gunakan halaman error yang konsisten dengan desain AIHebat.com.
+
+---
+
+## 22. Konten Awal
+
+Assessment pertama yang akan dipublikasikan:
+
+### Assessment #001
+
+**Judul:**
+Transformasi Software Development Lifecycle di Era Artificial Intelligence
+
+**Kategori:**
+Enterprise AI
+
+**Insight utama:**
+
+> AI tidak mengurangi pentingnya governance. AI mengubah cara artefak perangkat lunak dihasilkan.
+
+**Topik utama:**
+
+* perbedaan document-first dan prototype-first;
+* posisi MVP berbantuan AI;
+* Enterprise Framework sebagai guardrail AI;
+* bridge antara kecepatan inovasi dan governance;
+* perubahan peran strategis tim IT.
+
+Konten final akan disiapkan secara terpisah dan dimasukkan melalui CMS.
+
+---
+
+## 23. Acceptance Criteria MVP
+
+Fitur dinyatakan selesai apabila:
+
+1. Menu Assessment tampil pada navigasi utama.
+2. Halaman `/assessment` dapat diakses.
+3. Assessment dapat dibuat dan diedit melalui admin atau CMS.
+4. Halaman detail dapat menampilkan seluruh struktur konten utama.
+5. Assessment dapat memiliki kategori dan tag.
+6. Assessment dapat memiliki status opsional.
+7. Filter kategori berfungsi.
+8. Search Assessment berfungsi.
+9. Halaman responsif pada mobile dan desktop.
+10. Metadata SEO tersedia.
+11. Open Graph tampil benar saat URL dibagikan.
+12. Rich text telah disanitasi.
+13. Hak akses admin telah diterapkan.
+14. Halaman telah masuk sitemap.
+15. Analytics dasar telah aktif.
+16. Tidak terdapat error kritis pada browser console.
+17. Lighthouse dan pengujian accessibility tidak menunjukkan temuan kritis.
+
+---
+
+## 24. Pembagian Fase Pengembangan
+
+### Fase 1 — Assessment Publishing
+
+* menu;
+* daftar;
+* detail;
+* kategori;
+* status;
+* CMS;
+* SEO;
+* sharing;
+* analytics.
+
+### Fase 2 — Interactive Assessment
+
+* kuesioner;
+* sistem scoring;
+* hasil otomatis;
+* rekomendasi berdasarkan jawaban;
+* penyimpanan hasil pengguna;
+* ekspor laporan.
+
+### Fase 3 — Organizational Assessment
+
+* akun organisasi;
+* multi-user assessment;
+* dashboard;
+* benchmarking;
+* riwayat assessment;
+* action plan;
+* progress tracking.
+
+Dokumen ini hanya meminta implementasi **Fase 1**, tetapi arsitektur data sebaiknya tidak menutup kemungkinan pengembangan Fase 2 dan Fase 3.
+
+---
+
+## 25. Prinsip Desain
+
+Modul Assessment perlu terasa:
+
+* profesional;
+* kredibel;
+* humanis;
+* mudah dipindai;
+* tidak terlalu akademis;
+* tidak terasa seperti laporan audit yang kaku.
+
+Desain harus membantu pembaca memahami konteks dan insight tanpa harus membaca seluruh teks secara berurutan.
+
+Gunakan whitespace yang cukup, paragraf pendek, callout, tabel, dan highlight untuk memudahkan pembacaan.
+
+---
+
+## 26. Kesimpulan
+
+Fitur Assessment akan menjadi ruang khusus di AIHebat.com untuk mendokumentasikan hasil observasi dan pembelajaran nyata mengenai transformasi AI.
+
+Pada tahap awal, fitur ini berfungsi sebagai modul publikasi konten terstruktur. Namun dalam jangka panjang, modul yang sama dapat berkembang menjadi platform AI readiness assessment yang interaktif.
+
+Implementasi perlu dilakukan dengan memanfaatkan komponen, design system, CMS, analytics, dan standar keamanan yang sudah tersedia pada AIHebat.com.
+
+Tujuan akhirnya bukan sekadar menambah satu menu, tetapi membangun fondasi repositori pengetahuan mengenai implementasi AI yang relevan dengan konteks Indonesia.
+
+# Lampiran PRD
+
+## Instrumen Pertanyaan AI Readiness Assessment
+
+## 1. Tujuan Assessment
+
+Assessment digunakan untuk mengukur tingkat kesiapan individu atau organisasi dalam mengadopsi Artificial Intelligence secara aman, produktif, dan berkelanjutan.
+
+Assessment tidak hanya menilai kepemilikan teknologi. Penilaian mencakup enam dimensi:
+
+1. **AI Awareness dan Mindset**
+2. **Leadership dan Strategy**
+3. **People dan Capability**
+4. **Process dan Use Case**
+5. **Data dan Technology**
+6. **Governance, Security, dan Risk**
+
+Setiap dimensi menghasilkan skor tersendiri dan berkontribusi pada skor kesiapan keseluruhan.
+
+---
+
+# 2. Jenis Assessment
+
+Pada tahap awal, sistem perlu mendukung dua jenis assessment.
+
+## 2.1 Individual AI Readiness Assessment
+
+Target pengguna:
+
+* karyawan;
+* profesional;
+* manajer;
+* pemimpin;
+* masyarakat umum.
+
+Tujuan:
+
+* mengukur pemahaman AI;
+* mengukur kebiasaan penggunaan;
+* mengidentifikasi hambatan;
+* memberikan rekomendasi belajar dan penggunaan AI.
+
+## 2.2 Organizational AI Readiness Assessment
+
+Target pengguna:
+
+* perusahaan;
+* institusi;
+* unit kerja;
+* tim;
+* lembaga pemerintah.
+
+Tujuan:
+
+* mengukur kesiapan organisasi;
+* mengidentifikasi gap antara strategi dan implementasi;
+* memetakan risiko;
+* menentukan prioritas transformasi AI.
+
+MVP interaktif dapat dimulai dari **Individual AI Readiness Assessment**, lalu diperluas ke asesmen organisasi.
+
+---
+
+# 3. Format Jawaban
+
+Mayoritas pertanyaan menggunakan skala 1–5.
+
+| Nilai | Deskripsi                                  |
+| ----: | ------------------------------------------ |
+|     1 | Sangat tidak sesuai / Belum ada            |
+|     2 | Kurang sesuai / Baru mulai                 |
+|     3 | Cukup sesuai / Sudah ada sebagian          |
+|     4 | Sesuai / Sudah berjalan                    |
+|     5 | Sangat sesuai / Sudah matang dan konsisten |
+
+Beberapa pertanyaan menggunakan:
+
+* pilihan tunggal;
+* pilihan ganda;
+* ya/tidak;
+* free text;
+* skenario;
+* frekuensi penggunaan.
+
+Pertanyaan free text tidak selalu dihitung sebagai skor, tetapi disimpan sebagai insight tambahan.
+
+---
+
+# 4. Pertanyaan Individual AI Readiness Assessment
+
+## Dimensi A — AI Awareness dan Mindset
+
+### A1
+
+**Seberapa baik Anda memahami apa yang dapat dan tidak dapat dilakukan oleh AI generatif?**
+
+Jawaban:
+
+1. Saya hampir tidak memahami AI.
+2. Saya mengetahui AI secara umum.
+3. Saya memahami beberapa fungsi dan keterbatasannya.
+4. Saya memahami penggunaan, manfaat, dan risikonya.
+5. Saya mampu menjelaskan AI dan keterbatasannya kepada orang lain.
+
+### A2
+
+**Ketika menghadapi pekerjaan baru, seberapa sering Anda mempertimbangkan apakah AI dapat membantu?**
+
+1. Tidak pernah.
+2. Jarang.
+3. Kadang-kadang.
+4. Sering.
+5. Hampir selalu.
+
+### A3
+
+**Bagaimana sikap Anda ketika hasil AI belum sempurna?**
+
+1. Saya berhenti menggunakannya.
+2. Saya menganggap AI tidak dapat dipercaya.
+3. Saya mencoba memperbaiki prompt satu atau dua kali.
+4. Saya mengevaluasi, memperbaiki, dan memvalidasi hasilnya.
+5. Saya memahami bahwa penggunaan AI memerlukan iterasi dan kontrol manusia.
+
+### A4
+
+**Seberapa terbuka Anda untuk mengubah cara kerja lama apabila AI memberikan cara yang lebih efektif?**
+
+1. Sangat tidak terbuka.
+2. Kurang terbuka.
+3. Netral.
+4. Terbuka.
+5. Sangat terbuka dan aktif mencari cara baru.
+
+### A5
+
+**Apakah Anda melihat AI terutama sebagai ancaman atau peluang?**
+
+1. Hampir sepenuhnya sebagai ancaman.
+2. Lebih banyak ancaman daripada peluang.
+3. Seimbang.
+4. Lebih banyak peluang daripada ancaman.
+5. Sebagai peluang besar yang tetap perlu dikelola risikonya.
+
+### A6
+
+**Seberapa nyaman Anda belajar melalui percobaan, kesalahan, dan iterasi saat menggunakan AI?**
+
+1. Sangat tidak nyaman.
+2. Kurang nyaman.
+3. Cukup nyaman.
+4. Nyaman.
+5. Sangat nyaman.
+
+### A7
+
+**Ketika organisasi memperkenalkan AI, respons pertama Anda biasanya:**
+
+* Menghindari.
+* Menunggu instruksi rinci.
+* Mencoba jika diwajibkan.
+* Mencoba pada pekerjaan berisiko rendah.
+* Aktif mencari use case yang relevan.
+
+### A8 — Free Text
+
+**Apa kekhawatiran utama Anda mengenai penggunaan AI?**
+
+Placeholder:
+
+```text
+Contoh: keamanan data, kehilangan pekerjaan, hasil yang tidak akurat, belum memahami cara menggunakan AI.
+```
+
+---
+
+## Dimensi B — Kebiasaan dan Penggunaan AI
+
+### B1
+
+**Seberapa sering Anda menggunakan AI dalam pekerjaan atau aktivitas produktif?**
+
+1. Tidak pernah.
+2. Kurang dari sekali seminggu.
+3. Beberapa kali seminggu.
+4. Setiap hari.
+5. Beberapa kali setiap hari.
+
+### B2
+
+**Untuk aktivitas apa saja Anda menggunakan AI?**
+
+Pilihan ganda:
+
+* Mencari ide.
+* Menulis atau memperbaiki dokumen.
+* Merangkum informasi.
+* Analisis data.
+* Membuat presentasi.
+* Coding atau pengembangan aplikasi.
+* Riset.
+* Penerjemahan.
+* Belajar.
+* Otomatisasi pekerjaan.
+* Belum menggunakan AI.
+* Lainnya.
+
+### B3
+
+**Seberapa sering hasil AI benar-benar menghemat waktu Anda?**
+
+1. Tidak pernah.
+2. Jarang.
+3. Kadang-kadang.
+4. Sering.
+5. Hampir selalu.
+
+### B4
+
+**Apakah Anda selalu memeriksa kembali informasi penting yang dihasilkan AI?**
+
+1. Tidak pernah.
+2. Jarang.
+3. Kadang-kadang.
+4. Sering.
+5. Selalu.
+
+### B5
+
+**Seberapa mampu Anda menulis instruksi atau prompt yang jelas?**
+
+1. Belum mampu.
+2. Hanya instruksi sangat sederhana.
+3. Dapat memberikan konteks dan tujuan dasar.
+4. Dapat memberikan konteks, batasan, format, dan contoh.
+5. Dapat menyusun prompt kompleks dan memperbaikinya secara sistematis.
+
+### B6
+
+**Seberapa mampu Anda membedakan hasil AI yang baik dan yang meragukan?**
+
+1. Belum mampu.
+2. Sering menerima hasil tanpa mengevaluasi.
+3. Dapat mengenali kesalahan yang terlihat.
+4. Dapat menilai kualitas dan memvalidasi informasi penting.
+5. Dapat membuat metode evaluasi yang konsisten.
+
+### B7
+
+**Ketika AI memberikan jawaban yang salah, apa yang biasanya Anda lakukan?**
+
+* Menghentikan penggunaan.
+* Mengulang pertanyaan yang sama.
+* Mengubah beberapa kata.
+* Menambahkan konteks dan batasan.
+* Memeriksa sumber, menguji hasil, dan memperbaiki pendekatan.
+
+### B8
+
+**Apakah Anda pernah membuat workflow kerja yang menggabungkan lebih dari satu AI tool?**
+
+1. Tidak pernah.
+2. Pernah mencoba.
+3. Menggunakan sesekali.
+4. Menggunakan secara rutin.
+5. Membangun workflow atau automasi terstruktur.
+
+---
+
+## Dimensi C — AI Literacy dan Capability
+
+### C1
+
+**Seberapa baik Anda memahami istilah berikut: prompt, hallucination, context, model, token, dan training data?**
+
+1. Tidak memahami.
+2. Mengenal satu atau dua istilah.
+3. Memahami sebagian besar secara umum.
+4. Memahami fungsi dan implikasinya.
+5. Mampu menerapkannya secara praktis.
+
+### C2
+
+**Seberapa baik Anda memahami risiko membagikan data ke layanan AI publik?**
+
+1. Tidak memahami.
+2. Pernah mendengar tetapi belum memahami dampaknya.
+3. Memahami bahwa ada data yang tidak boleh dibagikan.
+4. Memahami klasifikasi dan risiko dasarnya.
+5. Mampu menentukan kontrol penggunaan berdasarkan sensitivitas data.
+
+### C3
+
+**Apakah Anda mengetahui bahwa AI dapat menghasilkan informasi yang terdengar meyakinkan tetapi salah?**
+
+* Tidak.
+* Pernah mendengar.
+* Ya, tetapi belum tahu cara memeriksa.
+* Ya, dan saya melakukan verifikasi.
+* Ya, dan saya memiliki metode evaluasi yang sistematis.
+
+### C4
+
+**Seberapa mampu Anda memilih AI tool sesuai kebutuhan?**
+
+1. Tidak tahu cara memilih.
+2. Menggunakan tool yang paling populer.
+3. Membandingkan fungsi dasar.
+4. Mempertimbangkan kualitas, keamanan, biaya, dan use case.
+5. Mampu membuat kriteria evaluasi tool.
+
+### C5
+
+**Seberapa mampu Anda menggabungkan pengetahuan domain dengan AI?**
+
+1. Belum mampu.
+2. Menggunakan AI untuk pertanyaan umum.
+3. Menggunakan AI untuk sebagian pekerjaan domain.
+4. Mengarahkan AI dengan konteks dan aturan domain.
+5. Menggunakan AI sebagai partner analisis sambil menjaga validasi ahli.
+
+### C6
+
+**Pelatihan AI apa yang pernah Anda ikuti?**
+
+Pilihan ganda:
+
+* Belum pernah.
+* Webinar umum.
+* Prompt engineering.
+* AI productivity.
+* AI untuk bidang pekerjaan tertentu.
+* AI governance atau security.
+* Coding dengan AI.
+* Program sertifikasi.
+* Belajar mandiri secara rutin.
+
+---
+
+## Dimensi D — Safety dan Responsible Use
+
+### D1
+
+**Apakah Anda pernah memasukkan informasi internal, pribadi, atau rahasia ke layanan AI publik?**
+
+* Tidak pernah.
+* Pernah tanpa memahami risikonya.
+* Pernah karena tidak ada panduan.
+* Hanya setelah menghapus informasi sensitif.
+* Menggunakan layanan yang sudah disetujui organisasi.
+
+Pertanyaan ini perlu ditampilkan secara netral dan tidak menghakimi.
+
+### D2
+
+**Apakah Anda mengetahui kebijakan organisasi terkait penggunaan AI?**
+
+1. Tidak ada atau saya tidak tahu.
+2. Pernah mendengar.
+3. Mengetahui sebagian.
+4. Memahami kebijakannya.
+5. Memahami dan secara aktif menerapkannya.
+
+### D3
+
+**Apakah Anda mencantumkan atau menjelaskan penggunaan AI jika hasilnya digunakan untuk keputusan penting?**
+
+1. Tidak pernah.
+2. Jarang.
+3. Bergantung pada kondisi.
+4. Sering.
+5. Selalu jika relevan.
+
+### D4
+
+**Seberapa sering Anda memeriksa kemungkinan bias dalam hasil AI?**
+
+1. Tidak pernah.
+2. Jarang.
+3. Kadang-kadang.
+4. Sering.
+5. Selalu pada keputusan yang berdampak.
+
+### D5
+
+**Untuk keputusan berisiko tinggi, bagaimana posisi AI menurut Anda?**
+
+* AI dapat mengambil keputusan sendiri.
+* AI dapat memutuskan jika hasilnya terlihat meyakinkan.
+* AI memberikan rekomendasi, manusia menyetujui.
+* AI hanya menjadi alat bantu dengan review ahli.
+* Penggunaan AI harus disesuaikan dengan tingkat risiko dan akuntabilitas.
+
+### D6
+
+**Apakah Anda mengetahui data apa yang boleh dan tidak boleh dimasukkan ke AI?**
+
+1. Tidak tahu.
+2. Hanya berdasarkan perkiraan.
+3. Mengetahui aturan umum.
+4. Memahami klasifikasi data.
+5. Memahami klasifikasi serta kontrol yang harus digunakan.
+
+---
+
+## Dimensi E — Personal Productivity dan Impact
+
+### E1
+
+**Berapa besar penghematan waktu yang Anda rasakan setelah menggunakan AI?**
+
+* Belum ada.
+* Kurang dari 10%.
+* Sekitar 10–25%.
+* Sekitar 26–50%.
+* Lebih dari 50%.
+
+Jawaban ini merupakan persepsi pengguna, bukan pengukuran produktivitas formal.
+
+### E2
+
+**Apakah AI meningkatkan kualitas hasil kerja Anda?**
+
+1. Tidak.
+2. Sangat sedikit.
+3. Pada sebagian pekerjaan.
+4. Pada banyak pekerjaan.
+5. Secara konsisten, dengan proses validasi.
+
+### E3
+
+**Apakah AI membantu Anda mengerjakan sesuatu yang sebelumnya tidak mampu Anda lakukan?**
+
+1. Tidak pernah.
+2. Jarang.
+3. Beberapa kali.
+4. Sering.
+5. Sangat sering.
+
+### E4
+
+**Apakah Anda menggunakan waktu yang dihemat oleh AI untuk aktivitas bernilai lebih tinggi?**
+
+1. Tidak.
+2. Belum konsisten.
+3. Kadang-kadang.
+4. Sering.
+5. Secara terencana.
+
+### E5
+
+**Contoh manfaat terbesar AI yang pernah Anda rasakan adalah:**
+
+Free text.
+
+---
+
+# 5. Pertanyaan Organizational AI Readiness Assessment
+
+## Dimensi O1 — Strategy dan Leadership
+
+### O1.1
+
+**Apakah organisasi memiliki visi atau arah penggunaan AI yang jelas?**
+
+1. Belum ada.
+2. Baru berupa diskusi.
+3. Sudah ada arah umum.
+4. Sudah diterjemahkan menjadi program.
+5. Sudah menjadi bagian strategi organisasi.
+
+### O1.2
+
+**Apakah pimpinan secara aktif menggunakan atau mendukung penggunaan AI?**
+
+1. Tidak.
+2. Dukungan bersifat informal.
+3. Ada dukungan dari sebagian pimpinan.
+4. Pimpinan aktif mendorong use case.
+5. Pimpinan menjadi role model dan sponsor transformasi AI.
+
+### O1.3
+
+**Apakah ada pemilik atau sponsor eksekutif untuk program AI?**
+
+1. Tidak ada.
+2. Belum formal.
+3. Ada tetapi kewenangannya terbatas.
+4. Ada sponsor dan mandat yang jelas.
+5. Ada governance dan akuntabilitas eksekutif.
+
+### O1.4
+
+**Apakah investasi AI dikaitkan dengan tujuan bisnis yang terukur?**
+
+1. Tidak.
+2. Fokus pada eksperimen teknologi.
+3. Sebagian use case memiliki tujuan bisnis.
+4. Sebagian besar use case memiliki KPI.
+5. Portfolio AI dikelola berdasarkan business value dan risiko.
+
+### O1.5
+
+**Bagaimana organisasi memilih use case AI?**
+
+* Berdasarkan tren.
+* Berdasarkan permintaan ad hoc.
+* Berdasarkan kebutuhan unit tertentu.
+* Berdasarkan nilai dan kelayakan.
+* Berdasarkan portfolio, risiko, data, dan dampak strategis.
+
+---
+
+## Dimensi O2 — People dan Capability
+
+### O2.1
+
+**Seberapa luas pemahaman dasar AI di organisasi?**
+
+1. Sangat terbatas.
+2. Hanya di tim teknologi.
+3. Ada pada beberapa unit.
+4. Cukup luas pada fungsi utama.
+5. Menjadi kompetensi organisasi.
+
+### O2.2
+
+**Apakah tersedia pelatihan AI untuk karyawan?**
+
+1. Tidak ada.
+2. Pelatihan ad hoc.
+3. Pelatihan dasar tersedia.
+4. Pelatihan berdasarkan role tersedia.
+5. Learning path dan sertifikasi internal tersedia.
+
+### O2.3
+
+**Apakah organisasi memiliki kemampuan AI berikut?**
+
+Pilihan ganda:
+
+* AI product management.
+* Data science.
+* Machine learning engineering.
+* AI governance.
+* AI security.
+* Prompt engineering.
+* Change management.
+* Legal dan compliance.
+* Belum tersedia.
+
+### O2.4
+
+**Bagaimana organisasi menangani resistensi terhadap AI?**
+
+1. Belum ditangani.
+2. Mengandalkan komunikasi umum.
+3. Ada sosialisasi.
+4. Ada program perubahan dan pendampingan.
+5. Ada change management berbasis role, risiko, dan manfaat.
+
+### O2.5
+
+**Apakah pengguna bisnis dilibatkan dalam pengembangan solusi AI?**
+
+1. Tidak.
+2. Hanya pada akhir proses.
+3. Pada tahap requirement.
+4. Pada validasi dan iterasi.
+5. Sebagai co-creator sepanjang lifecycle.
+
+---
+
+## Dimensi O3 — Process dan Use Case
+
+### O3.1
+
+**Apakah organisasi memiliki proses formal untuk mengidentifikasi use case AI?**
+
+1. Tidak ada.
+2. Ad hoc.
+3. Sudah ada template sederhana.
+4. Ada proses evaluasi value dan feasibility.
+5. Ada portfolio management dan review berkala.
+
+### O3.2
+
+**Apakah AI sudah digunakan dalam proses bisnis inti?**
+
+1. Belum digunakan.
+2. Hanya eksperimen.
+3. Digunakan pada fungsi pendukung.
+4. Digunakan pada beberapa proses utama.
+5. Terintegrasi dan memberikan dampak terukur.
+
+### O3.3
+
+**Apakah organisasi mengukur manfaat AI?**
+
+1. Tidak.
+2. Berdasarkan persepsi.
+3. Mengukur sebagian use case.
+4. Memiliki KPI yang konsisten.
+5. Memiliki baseline, outcome, ROI, dan learning metrics.
+
+### O3.4
+
+**Apakah proses bisnis disesuaikan setelah AI diterapkan?**
+
+1. Tidak.
+2. AI hanya ditambahkan ke proses lama.
+3. Ada perubahan kecil.
+4. Proses didesain ulang.
+5. Operating model berkembang secara menyeluruh.
+
+### O3.5
+
+**Apakah organisasi memiliki proses penghentian use case AI yang tidak efektif atau terlalu berisiko?**
+
+1. Tidak.
+2. Berdasarkan keputusan informal.
+3. Ada review sesekali.
+4. Ada exit criteria.
+5. Ada lifecycle management penuh.
+
+---
+
+## Dimensi O4 — Data dan Technology
+
+### O4.1
+
+**Apakah data organisasi cukup tersedia untuk use case AI?**
+
+1. Tidak tersedia.
+2. Tersebar dan sulit diakses.
+3. Tersedia untuk sebagian use case.
+4. Cukup terintegrasi dan terdokumentasi.
+5. Dikelola sebagai aset strategis.
+
+### O4.2
+
+**Bagaimana kualitas data organisasi?**
+
+1. Tidak diketahui.
+2. Banyak masalah dan tidak terukur.
+3. Ada perbaikan pada area tertentu.
+4. Ada standar kualitas dan monitoring.
+5. Kualitas data dikelola secara konsisten.
+
+### O4.3
+
+**Apakah organisasi memiliki klasifikasi data?**
+
+1. Tidak ada.
+2. Ada secara informal.
+3. Ada klasifikasi dasar.
+4. Diterapkan pada sistem utama.
+5. Terintegrasi dengan akses, AI, dan kebijakan keamanan.
+
+### O4.4
+
+**Apakah infrastruktur mendukung eksperimen dan produksi AI?**
+
+1. Tidak.
+2. Bergantung pada perangkat individu.
+3. Ada environment eksperimen.
+4. Ada platform terkelola.
+5. Ada platform scalable dengan monitoring dan kontrol biaya.
+
+### O4.5
+
+**Apakah model, prompt, dan data source memiliki versioning?**
+
+1. Tidak.
+2. Manual.
+3. Sebagian terdokumentasi.
+4. Ada version control.
+5. Ada lineage, registry, approval, dan rollback.
+
+### O4.6
+
+**Apakah integrasi AI menggunakan API dan arsitektur yang disetujui?**
+
+1. Tidak.
+2. Banyak eksperimen langsung.
+3. Ada pola dasar.
+4. Sebagian besar terstandardisasi.
+5. Ada enterprise AI platform dan integration governance.
+
+---
+
+## Dimensi O5 — Governance, Security, dan Risk
+
+### O5.1
+
+**Apakah organisasi memiliki kebijakan penggunaan AI?**
+
+1. Tidak ada.
+2. Sedang disusun.
+3. Ada kebijakan dasar.
+4. Diterapkan dan disosialisasikan.
+5. Dimonitor, diperbarui, dan diaudit.
+
+### O5.2
+
+**Apakah use case AI diklasifikasikan berdasarkan risiko?**
+
+1. Tidak.
+2. Hanya berdasarkan pertimbangan informal.
+3. Ada kategori risiko dasar.
+4. Ada assessment dan approval.
+5. Ada risk-based lifecycle governance.
+
+### O5.3
+
+**Apakah organisasi melindungi data sensitif saat menggunakan AI?**
+
+1. Tidak ada kontrol.
+2. Mengandalkan kehati-hatian pengguna.
+3. Ada panduan.
+4. Ada kontrol teknis dan akses.
+5. Ada DLP, logging, encryption, dan policy enforcement.
+
+### O5.4
+
+**Apakah output AI divalidasi sebelum digunakan untuk keputusan penting?**
+
+1. Tidak.
+2. Bergantung pada pengguna.
+3. Ada review pada kasus tertentu.
+4. Ada human-in-the-loop.
+5. Tingkat validasi disesuaikan dengan risiko.
+
+### O5.5
+
+**Apakah penggunaan AI memiliki audit trail?**
+
+1. Tidak.
+2. Hanya log teknis terbatas.
+3. Ada pencatatan sebagian.
+4. Ada audit log untuk use case penting.
+5. Ada traceability dari data, model, prompt, output, hingga keputusan.
+
+### O5.6
+
+**Apakah organisasi melakukan pengujian keamanan terhadap sistem AI?**
+
+1. Tidak.
+2. Hanya security testing umum.
+3. Ada pengujian dasar AI.
+4. Ada prompt injection, abuse, dan privacy testing.
+5. Ada continuous AI red teaming dan monitoring.
+
+### O5.7
+
+**Apakah organisasi memiliki proses incident response untuk AI?**
+
+1. Tidak.
+2. Menggunakan prosedur IT umum.
+3. Ada eskalasi dasar.
+4. Ada runbook AI incident.
+5. Ada monitoring, escalation, remediation, dan post-incident review.
+
+---
+
+## Dimensi O6 — AI-Assisted Software Development
+
+Bagian ini relevan dengan Assessment pertama AIHebat.com.
+
+### O6.1
+
+**Apakah developer diperbolehkan menggunakan AI untuk membantu coding?**
+
+1. Tidak diperbolehkan.
+2. Tidak ada aturan.
+3. Diperbolehkan secara terbatas.
+4. Diperbolehkan dengan guideline.
+5. Terintegrasi dalam engineering process.
+
+### O6.2
+
+**Apakah framework dan standar IT tersedia dalam format yang dapat digunakan oleh AI?**
+
+1. Tidak tersedia.
+2. Tersebar di berbagai dokumen.
+3. Sudah terdokumentasi tetapi belum terstruktur.
+4. Tersedia sebagai knowledge base.
+5. Terintegrasi dengan development tool dan AI assistant.
+
+### O6.3
+
+**Apakah MVP berbantuan AI dapat digunakan sebagai input proses enterprise development?**
+
+1. Tidak diterima.
+2. Hanya dipakai sebagai referensi UI.
+3. Digunakan untuk requirement dan workflow.
+4. Sebagian kode dan artefak dapat digunakan setelah review.
+5. Digunakan melalui proses assessment, refactoring, dan hardening yang terstandar.
+
+### O6.4
+
+**Apakah organisasi memiliki quality gate untuk kode hasil AI?**
+
+1. Tidak.
+2. Review manual informal.
+3. Code review dan testing dasar.
+4. Security scan, test, dan architecture review.
+5. Automated guardrail, traceability, testing, dan approval.
+
+### O6.5
+
+**Bagaimana posisi standar IT dalam proses pembuatan MVP?**
+
+1. Baru digunakan setelah MVP selesai.
+2. Digunakan saat review.
+3. Sebagian dijadikan panduan awal.
+4. Digunakan sebagai guardrail sejak awal.
+5. Menjadi machine-readable enterprise development standard.
+
+### O6.6
+
+**Apakah organisasi mengukur dampak AI terhadap produktivitas engineering?**
+
+1. Tidak.
+2. Berdasarkan persepsi.
+3. Mengukur waktu coding.
+4. Mengukur time-to-prototype, defect, dan cycle time.
+5. Mengukur productivity, quality, security, learning velocity, dan business impact.
+
+---
+
+# 6. Pertanyaan Profil Responden
+
+Pertanyaan ini digunakan untuk segmentasi, bukan selalu untuk scoring.
+
+## Individual
+
+* Nama, opsional.
+* Email, opsional.
+* Usia, opsional.
+* Jabatan.
+* Fungsi pekerjaan.
+* Industri.
+* Lama pengalaman kerja.
+* Frekuensi penggunaan AI.
+* AI tool yang paling sering digunakan.
+* Tujuan mengikuti assessment.
+
+## Organisasi
+
+* Nama organisasi, opsional.
+* Industri.
+* Jumlah karyawan.
+* Jenis organisasi.
+* Jabatan responden.
+* Fungsi atau unit kerja.
+* Tingkat keterlibatan responden dalam keputusan AI.
+* Status implementasi AI saat ini.
+
+Data pribadi harus diminimalkan dan mengikuti privacy policy AIHebat.com.
+
+---
+
+# 7. Logika Skoring
+
+Setiap jawaban bernilai 1–5.
+
+Skor dimensi:
+
+```text
+Jumlah nilai jawaban
+÷
+Nilai maksimum dimensi
+×
+100
+```
+
+Contoh:
+
+```text
+Total nilai dimensi = 32
+Nilai maksimum = 40
+
+Skor dimensi = 80
+```
+
+Skor akhir merupakan rata-rata tertimbang seluruh dimensi.
+
+Usulan bobot Organizational AI Readiness:
+
+| Dimensi                        | Bobot |
+| ------------------------------ | ----: |
+| Strategy dan Leadership        |   20% |
+| People dan Capability          |   15% |
+| Process dan Use Case           |   15% |
+| Data dan Technology            |   20% |
+| Governance, Security, dan Risk |   20% |
+| AI-Assisted Development        |   10% |
+
+Bobot perlu dapat dikonfigurasi melalui admin.
+
+---
+
+# 8. Tingkat Kematangan
+
+## Level 1 — Unaware
+
+**Skor: 0–20**
+
+Karakteristik:
+
+* pemahaman sangat terbatas;
+* belum ada strategi;
+* penggunaan bersifat insidental;
+* risiko belum dikelola.
+
+## Level 2 — Exploring
+
+**Skor: 21–40**
+
+Karakteristik:
+
+* mulai ada eksperimen;
+* awareness mulai tumbuh;
+* penggunaan belum konsisten;
+* governance masih minimal.
+
+## Level 3 — Developing
+
+**Skor: 41–60**
+
+Karakteristik:
+
+* use case mulai diterapkan;
+* capability mulai dibangun;
+* standar dasar tersedia;
+* manfaat belum sepenuhnya terukur.
+
+## Level 4 — Operational
+
+**Skor: 61–80**
+
+Karakteristik:
+
+* AI telah digunakan secara rutin;
+* governance dan security diterapkan;
+* manfaat mulai terukur;
+* proses lintas fungsi mulai terintegrasi.
+
+## Level 5 — AI-Native
+
+**Skor: 81–100**
+
+Karakteristik:
+
+* AI menjadi bagian operating model;
+* governance berbasis risiko;
+* data dan platform terintegrasi;
+* organisasi belajar dan berinovasi secara berkelanjutan.
+
+Nama level dapat disesuaikan melalui admin.
+
+---
+
+# 9. Logika Rekomendasi
+
+Rekomendasi tidak hanya berdasarkan skor total.
+
+Sistem harus membaca skor per dimensi.
+
+Contoh:
+
+## Jika skor Mindset rendah
+
+Tampilkan:
+
+* Mulai dari pelatihan awareness.
+* Gunakan contoh pekerjaan sehari-hari.
+* Lakukan eksperimen berisiko rendah.
+* Hindari memulai dari materi teknis yang kompleks.
+
+## Jika skor Governance rendah
+
+Tampilkan:
+
+* Susun kebijakan penggunaan AI.
+* Terapkan klasifikasi data.
+* Tentukan prohibited use.
+* Terapkan human review untuk keputusan penting.
+* Bangun AI incident response.
+
+## Jika skor Data rendah
+
+Tampilkan:
+
+* Inventarisasi data.
+* Tetapkan data owner.
+* Perbaiki kualitas dan akses data.
+* Susun data classification.
+* Bangun data lineage.
+
+## Jika skor AI-Assisted Development rendah
+
+Tampilkan:
+
+* Susun secure AI coding guideline.
+* Ubah framework IT menjadi knowledge base.
+* Tambahkan automated testing dan security scan.
+* Terapkan pilot AI-assisted SDLC.
+* Tentukan kriteria reuse, refactor, atau rewrite.
+
+---
+
+# 10. Halaman Hasil Assessment
+
+Halaman hasil minimal menampilkan:
+
+1. Nama assessment.
+2. Skor keseluruhan.
+3. Tingkat kematangan.
+4. Grafik skor per dimensi.
+5. Tiga kekuatan utama.
+6. Tiga gap prioritas.
+7. Rekomendasi prioritas.
+8. Recommended next step.
+9. Disclaimer.
+10. Tombol mengulang assessment.
+11. Tombol membagikan hasil.
+12. CTA membaca Assessment terkait.
+
+Contoh ringkasan:
+
+```text
+Skor Keseluruhan: 58/100
+
+Tingkat:
+Developing
+
+Kekuatan:
+- Leadership support
+- Eksperimen use case
+- Penggunaan AI oleh sebagian tim
+
+Prioritas:
+- Kebijakan penggunaan AI
+- Data classification
+- Pengukuran manfaat
+```
+
+---
+
+# 11. Disclaimer
+
+Hasil assessment harus memuat disclaimer:
+
+> Hasil ini merupakan self-assessment berdasarkan jawaban responden. Hasil tidak dimaksudkan sebagai audit formal, sertifikasi, atau jaminan kepatuhan. Untuk keputusan berisiko tinggi, diperlukan validasi lebih lanjut oleh pihak yang kompeten.
+
+---
+
+# 12. Acceptance Criteria Instrumen Assessment
+
+Instrumen dinyatakan berhasil apabila:
+
+1. Pertanyaan dapat dikelompokkan berdasarkan dimensi.
+2. Admin dapat mengaktifkan atau menonaktifkan pertanyaan.
+3. Admin dapat mengubah teks pertanyaan dan opsi jawaban.
+4. Setiap opsi dapat memiliki skor.
+5. Bobot dimensi dapat dikonfigurasi.
+6. Pertanyaan dapat bersifat wajib atau opsional.
+7. Sistem mendukung single select, multi-select, skala, dan free text.
+8. Skor total dan skor dimensi dihitung otomatis.
+9. Rekomendasi dapat dipetakan berdasarkan range skor.
+10. Jawaban dapat disimpan secara anonim.
+11. Pengguna dapat melihat hasil setelah menyelesaikan assessment.
+12. Sistem tidak menghitung pertanyaan free text sebagai skor kecuali dikonfigurasi.
+13. Hasil dapat dibagikan tanpa menampilkan data pribadi.
+14. Admin dapat melihat statistik agregat tanpa mengakses informasi pribadi yang tidak diperlukan.
+
+
+Untuk implementasi pertama, saya menyarankan engineer tidak langsung memasukkan seluruh pertanyaan. Mulai dengan sekitar 25–30 pertanyaan inti agar completion rate tetap baik. Bank pertanyaan di atas dapat menjadi basis untuk membuat versi singkat, standar, dan mendalam.

@@ -1,0 +1,274 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>AI Readiness Assessment - AIHEBAT | Ukur Kesiapan AI Pribadi dan Organisasi</title>
+  <meta name="description" content="Ukur kesiapan AI pribadi dan organisasi melalui asesmen perilaku, maturity kerja, dan readiness adopsi AI.">
+  <meta name="keywords" content="AI readiness assessment, asesmen kesiapan AI, maturity AI, adopsi AI organisasi, AI behavior assessment">
+
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="assets/css/main.css?v=20260813b" rel="stylesheet">
+</head>
+
+<body class="assessment-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <h1 class="sitename">AIHEBAT</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html#hero">Beranda</a></li>
+          <li><a href="index.html#about">Mengenal AI</a></li>
+          <li><a href="index.html#services">Pemanfaatan AI</a></li>
+          <li><a href="index.html#portfolio">Aplikasi AI</a></li>
+          <li><a href="index.html#team">Testimoni</a></li>
+          <li><a href="index.html#pricing">Program</a></li>
+          <li><a href="blog.html">Artikel</a></li>
+          <li><a href="assessment.html" class="active">Assessment</a></li>
+          <li><a href="index.html#contact">Kontak</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="page-title" data-aos="fade">
+      <div class="container">
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="index.html">Beranda</a></li>
+            <li class="current">Assessment</li>
+          </ol>
+        </nav>
+        <h1>AI Readiness Assessment</h1>
+        <p class="assessment-page-subtitle">Ukur kesiapan AI pribadi atau organisasi Anda dengan assessment berbasis perilaku dan maturity.</p>
+      </div>
+    </div>
+
+    <section id="ai-readiness-assessment" class="assessment-tool section">
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="assessment-tool-header">
+          <div>
+            <span id="assessment-mode-chip" class="assessment-chip">Organisasi</span>
+            <span id="assessment-count-chip" class="assessment-chip assessment-chip-status">5 Pilar | 25 Pertanyaan</span>
+          </div>
+          <p id="assessment-intro-text">Jawab setiap pertanyaan dengan skala 1 sampai 5. Hasil akan menampilkan maturity organisasi per pilar dan skor keseluruhan.</p>
+        </div>
+
+        <div class="assessment-mode-switch" role="tablist" aria-label="Pilih jenis assessment">
+          <button type="button" class="assessment-mode-btn active" data-assessment-mode="organization" role="tab" aria-selected="true">
+            <i class="bi bi-buildings"></i>
+            <span>Organisasi</span>
+          </button>
+          <button type="button" class="assessment-mode-btn" data-assessment-mode="personal" role="tab" aria-selected="false">
+            <i class="bi bi-person-check"></i>
+            <span>Pribadi</span>
+          </button>
+          <button type="button" class="assessment-mode-btn" data-assessment-mode="training-evaluation" role="tab" aria-selected="false">
+            <i class="bi bi-clipboard-check"></i>
+            <span>Evaluasi Pelatihan</span>
+          </button>
+          <a class="assessment-dashboard-btn" href="forms/assessment-dashboard.php" target="_blank" rel="noopener" aria-label="Buka dashboard hasil assessment">
+            <i class="bi bi-bar-chart-line"></i>
+            <span>Dashboard</span>
+          </a>
+        </div>
+
+        <div class="assessment-scale" aria-label="Skala jawaban">
+          <span>1 = Belum ada</span>
+          <span>2 = Baru mulai</span>
+          <span>3 = Ada sebagian</span>
+          <span>4 = Sudah berjalan</span>
+          <span>5 = Matang dan konsisten</span>
+        </div>
+
+        <form id="ai-readiness-form" class="assessment-form">
+          <div class="assessment-progress" aria-label="Progress assessment">
+            <div id="assessment-progress-steps" class="assessment-progress-steps"></div>
+            <p id="assessment-progress-label">Pilar 1 dari 5</p>
+          </div>
+
+          <div id="assessment-question-list"></div>
+
+          <section id="assessment-lead-form" class="assessment-lead-form" hidden>
+            <div class="assessment-pillar-heading">
+              <i class="bi bi-person-vcard"></i>
+              <div>
+                <span>Data Peserta</span>
+                <h2>Daftar untuk Melihat Hasil</h2>
+              </div>
+            </div>
+            <div class="assessment-lead-grid">
+              <div>
+                <label for="assessment-name" class="form-label">Nama Lengkap</label>
+                <input type="text" id="assessment-name" class="form-control" autocomplete="name">
+              </div>
+              <div>
+                <label for="assessment-company" class="form-label">Perusahaan / Organisasi</label>
+                <input type="text" id="assessment-company" class="form-control" autocomplete="organization">
+              </div>
+              <div>
+                <label for="assessment-email" class="form-label">Alamat Email</label>
+                <input type="email" id="assessment-email" class="form-control" autocomplete="email">
+              </div>
+              <div class="assessment-goal-field">
+                <label for="assessment-goal" class="form-label">Tujuan Utama Mengikuti Pelatihan</label>
+                <select id="assessment-goal" class="form-select">
+                  <option value="">Pilih tujuan utama</option>
+                  <option value="Baru ingin mengenal AI">Baru ingin mengenal AI</option>
+                  <option value="Ingin lebih produktif dalam pekerjaan sehari-hari">Ingin lebih produktif dalam pekerjaan sehari-hari</option>
+                  <option value="Ingin bisa menganalisis data dan membuat dashboard dengan AI">Ingin bisa menganalisis data dan membuat dashboard dengan AI</option>
+                  <option value="Ingin mengotomatisasi proses kerja">Ingin mengotomatisasi proses kerja</option>
+                  <option value="Ingin membangun solusi atau inovasi berbasis AI">Ingin membangun solusi atau inovasi berbasis AI</option>
+                </select>
+              </div>
+            </div>
+            <p id="assessment-lead-error" class="assessment-lead-error" hidden>Lengkapi nama, email valid, tujuan pelatihan, dan perusahaan jika memilih assessment Organisasi.</p>
+            <p id="assessment-save-status" class="assessment-save-status" hidden></p>
+          </section>
+
+          <div class="assessment-actions">
+            <button type="button" id="assessment-prev" class="btn btn-outline-primary">Sebelumnya</button>
+            <button type="button" id="assessment-next" class="btn btn-primary">Berikutnya</button>
+            <button type="submit" id="assessment-submit" class="btn btn-primary" hidden>Lihat Hasil</button>
+            <button type="button" id="assessment-reset" class="btn btn-outline-primary">Reset Jawaban</button>
+          </div>
+        </form>
+
+        <section id="assessment-result" class="assessment-result" aria-live="polite" hidden>
+          <div class="assessment-result-summary">
+            <div>
+              <p class="result-kicker">Skor Kesiapan AI</p>
+              <h2 id="assessment-overall-score">0.0</h2>
+              <p id="assessment-overall-level">Belum dihitung</p>
+              <p id="assessment-overall-status" class="assessment-overall-status">Status: Belum dihitung</p>
+            </div>
+            <div class="assessment-readiness-chart" id="assessment-readiness-chart" style="--ready-percent: 0%;">
+              <div>
+                <strong id="assessment-readiness-percent">0%</strong>
+                <span>Kesiapan</span>
+              </div>
+            </div>
+          </div>
+          <div id="assessment-pillar-results" class="assessment-pillar-results"></div>
+          <div class="assessment-callout" id="assessment-recommendation"></div>
+          <div class="assessment-followup">
+            <div>
+              <h3>Tingkatkan Maturity AI Organisasi Anda</h3>
+              <p id="assessment-followup-text">Gunakan hasil assessment ini sebagai bahan diskusi awal dengan tim AIHebat untuk menyusun langkah peningkatan yang lebih terarah.</p>
+            </div>
+            <div class="assessment-followup-actions">
+              <a id="assessment-wa-link" class="btn btn-success" href="https://wa.me/6287825785182" target="_blank" rel="noopener">
+                <i class="bi bi-whatsapp"></i> Konsultasi via WhatsApp
+              </a>
+              <a id="assessment-email-link" class="btn btn-outline-primary" href="mailto:admin@aihebat.com">
+                <i class="bi bi-envelope"></i> Kirim Email
+              </a>
+              <a class="btn btn-outline-primary" href="index.html#contact">
+                <i class="bi bi-chat-dots"></i> Form Kontak
+              </a>
+              <a class="btn btn-outline-primary" href="forms/assessment-dashboard.php" target="_blank" rel="noopener">
+                <i class="bi bi-bar-chart-line"></i> Dashboard Hasil
+              </a>
+              <button type="button" id="assessment-pdf-btn" class="btn btn-outline-primary">
+                <i class="bi bi-file-earmark-pdf"></i> Download PDF
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <footer id="footer" class="footer">
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">AIHEBAT</strong> <span>All Rights Reserved</span></p>
+      <p id="visitor-counter" class="visitor-counter" aria-live="polite">
+        <i class="bi bi-eye"></i>
+        <span>Total Pengunjung: menghitung...</span>
+      </p>
+    </div>
+  </footer>
+
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/js/main.js?v=20260803fix1"></script>
+  <script>
+    (function() {
+      const counterElement = document.getElementById('visitor-counter');
+      if (!counterElement) return;
+      const counterText = counterElement.querySelector('span') || counterElement;
+      const fallbackKey = 'aihebat-local-visitor-count';
+
+      const setCounterText = (text) => {
+        counterText.textContent = text;
+        counterElement.style.display = 'inline-flex';
+      };
+
+      const showLocalFallback = () => {
+        const currentValue = Number.parseInt(localStorage.getItem(fallbackKey) || '0', 10);
+        const nextValue = Number.isFinite(currentValue) ? currentValue + 1 : 1;
+        localStorage.setItem(fallbackKey, String(nextValue));
+        counterElement.classList.add('visitor-counter-fallback');
+        setCounterText('Kunjungan browser ini: ' + nextValue.toLocaleString('id-ID'));
+      };
+
+      const loadCounter = async () => {
+        const endpoints = [
+          'forms/visitor-counter.php'
+        ];
+
+        for (const url of endpoints) {
+          try {
+            const res = await fetch(url, { cache: 'no-store' });
+            if (!res.ok) continue;
+            const data = await res.json();
+            const value = Number.isFinite(data?.count) ? data.count : data?.value;
+            if (Number.isFinite(value)) {
+              counterElement.classList.remove('visitor-counter-fallback');
+              setCounterText('Total Pengunjung: ' + value.toLocaleString('id-ID'));
+              return;
+            }
+          } catch (err) {
+            continue;
+          }
+        }
+
+        showLocalFallback();
+      };
+
+      window.addEventListener('load', () => {
+        setTimeout(loadCounter, 1200);
+      });
+    })();
+  </script>
+
+</body>
+
+</html>

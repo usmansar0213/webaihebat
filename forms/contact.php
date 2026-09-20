@@ -1,58 +1,58 @@
 <?php
-  /**
-  * Requires the "PHP Email Form" library
-  * The "PHP Email Form" library is available only in the pro version of the template
-  * The library should be uploaded to: vendor/php-email-form/php-email-form.php
-  * For more info and help: https://bootstrapmade.com/php-email-form/
-  */
+require_once __DIR__ . '/common.php';
 
-  // Replace with your real receiving email address
-  $receiving_email_address = 'admin@aihebat.com';
+require_post_method();
+enforce_allowed_hosts();
 
-  // Basic security: Check if request is POST
-  if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    die('Method not allowed');
-  }
+$name = clean_text($_POST['name'] ?? '', 120);
+$email = clean_text($_POST['email'] ?? '', 180);
+$subject = clean_text($_POST['subject'] ?? '', 180);
+$message = clean_text($_POST['message'] ?? '', 5000);
+$phone = clean_text($_POST['phone'] ?? '', 60);
 
-  // Basic CSRF protection - check referer
-  $allowed_domains = ['aihebat.com', 'www.aihebat.com', 'localhost'];
-  $referer = isset($_SERVER['HTTP_REFERER']) ? parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST) : '';
-  if (!in_array($referer, $allowed_domains) && $referer !== '') {
-    http_response_code(403);
-    die('Forbidden');
-  }
+if ($name === '' || $email === '' || $subject === '' || $message === '') {
+  fail_response('Please fill all required fields');
+}
 
-  if( file_exists($php_email_form = '../assets/vendor/php-email-form/php-email-form.php' )) {
-    include( $php_email_form );
-  } else {
-    die( 'Unable to load the "PHP Email Form" Library!');
-  }
+if (!valid_email($email)) {
+  fail_response('Invalid email address');
+}
 
-  $contact = new PHP_Email_Form;
-  $contact->ajax = true;
-  
-  $contact->to = $receiving_email_address;
-  $contact->from_name = $_POST['name'];
-  $contact->from_email = $_POST['email'];
-  $contact->subject = $_POST['subject'];
+$to = env_value('CONTACT_RECEIVING_EMAIL', 'admin@aihebat.com');
+if (!valid_email($to)) {
+  fail_response('Contact receiving email is not configured', 500);
+}
 
-  // Uncomment below code if you want to use SMTP to send emails. You need to enter your correct SMTP credentials
-  /*
-  $contact->smtp = array(
-    'host' => 'example.com',
-    'username' => 'example',
-    'password' => 'pass',
-    'port' => '587'
-  );
-  */
+$plain = "New contact message from AIHebat website\n\n"
+  . "Name: {$name}\n"
+  . "Email: {$email}\n"
+  . "Phone: {$phone}\n"
+  . "Subject: {$subject}\n\n"
+  . "Message:\n{$message}\n";
 
-  $contact->add_message( $_POST['name'], 'From');
-  $contact->add_message( $_POST['email'], 'Email');
-  if(isset($_POST['phone'])) {
-    $contact->add_message( $_POST['phone'], 'Phone');
-  }
-  $contact->add_message( $_POST['message'], 'Message', 10);
+$html = '<h3>New contact message from AIHebat website</h3>'
+  . '<p><strong>Name:</strong> ' . htmlspecialchars($name, ENT_QUOTES, 'UTF-8') . '</p>'
+  . '<p><strong>Email:</strong> ' . htmlspecialchars($email, ENT_QUOTES, 'UTF-8') . '</p>'
+  . '<p><strong>Phone:</strong> ' . htmlspecialchars($phone, ENT_QUOTES, 'UTF-8') . '</p>'
+  . '<p><strong>Subject:</strong> ' . htmlspecialchars($subject, ENT_QUOTES, 'UTF-8') . '</p>'
+  . '<p><strong>Message:</strong><br>' . nl2br(htmlspecialchars($message, ENT_QUOTES, 'UTF-8')) . '</p>';
 
-  echo $contact->send();
+$sent = send_outbound_email($to, '[AIHebat Contact] ' . $subject, $plain, $html, $email, $name);
+if (!$sent) {
+  fail_response('Unable to send message right now. Please try again later.', 502);
+}
+
+$collection = env_value('FIRESTORE_COLLECTION_CONTACT', 'contact_submissions');
+log_to_firestore($collection, [
+  'name' => $name,
+  'email' => $email,
+  'phone' => $phone,
+  'subject' => $subject,
+  'message' => $message,
+  'ip' => clean_text($_SERVER['REMOTE_ADDR'] ?? '', 64),
+  'userAgent' => clean_text($_SERVER['HTTP_USER_AGENT'] ?? '', 300),
+  'createdAt' => gmdate('c')
+]);
+
+ok_response();
 ?>

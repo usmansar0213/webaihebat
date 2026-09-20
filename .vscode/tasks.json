@@ -1,0 +1,219 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "GCP: CLI Action Hub",
+      "type": "shell",
+      "command": "powershell -ExecutionPolicy Bypass -File ./scripts/gcp-cli.ps1 -Action ${input:gcpAction} -ProjectId ${input:projectId} -Region ${input:region} -ServiceName ${input:serviceName} -Repository ${input:repository} -SecretName ${input:sendgridSecretName} -SmtpPasswordSecretName ${input:smtpPasswordSecretName} -ApiKey ${input:mailSecretValue} -ContactReceivingEmail ${input:contactEmail} -NewsletterReceivingEmail ${input:newsletterEmail} -SenderEmail ${input:senderEmail} -SenderName ${input:senderName} -MailProvider ${input:mailProvider} -SmtpHost ${input:smtpHost} -SmtpPort ${input:smtpPort} -SmtpEncryption ${input:smtpEncryption} -SmtpUsername ${input:smtpUsername} -AllowedHosts ${input:allowedHosts} -EnableFirestoreLog ${input:enableFirestoreLog} -FirestoreCollectionContact ${input:firestoreContactCollection} -FirestoreCollectionNewsletter ${input:firestoreNewsletterCollection} -AssessmentLogToken ${input:assessmentLogToken}",
+      "problemMatcher": []
+    },
+    {
+      "label": "GCP: Auth Login",
+      "type": "shell",
+      "command": "gcloud auth login",
+      "problemMatcher": []
+    },
+    {
+      "label": "GCP: Set Active Project",
+      "type": "shell",
+      "command": "gcloud config set project ${input:projectId}",
+      "problemMatcher": []
+    },
+    {
+      "label": "GCP: Setup Cloud Run Base",
+      "type": "shell",
+      "command": "powershell -ExecutionPolicy Bypass -File ./scripts/setup-gcp-cloudrun.ps1 -ProjectId ${input:projectId} -Region ${input:region} -ServiceName ${input:serviceName} -Repository ${input:repository}",
+      "problemMatcher": []
+    },
+    {
+      "label": "GCP: Create/Update SendGrid Secret",
+      "type": "shell",
+      "command": "powershell -ExecutionPolicy Bypass -File ./scripts/create-sendgrid-secret.ps1 -ProjectId ${input:projectId} -SecretValue ${input:mailSecretValue} -SecretName ${input:smtpPasswordSecretName}",
+      "problemMatcher": []
+    },
+    {
+      "label": "GCP: Deploy Cloud Run",
+      "type": "shell",
+      "command": "powershell -ExecutionPolicy Bypass -File ./scripts/deploy-gcp-cloudrun.ps1 -ProjectId ${input:projectId} -Region ${input:region} -ServiceName ${input:serviceName} -Repository ${input:repository} -ContactReceivingEmail ${input:contactEmail} -NewsletterReceivingEmail ${input:newsletterEmail} -SenderEmail ${input:senderEmail} -SenderName ${input:senderName} -MailProvider ${input:mailProvider} -SmtpHost ${input:smtpHost} -SmtpPort ${input:smtpPort} -SmtpEncryption ${input:smtpEncryption} -SmtpUsername ${input:smtpUsername} -AllowedHosts ${input:allowedHosts} -EnableFirestoreLog ${input:enableFirestoreLog} -FirestoreCollectionContact ${input:firestoreContactCollection} -FirestoreCollectionNewsletter ${input:firestoreNewsletterCollection} -AssessmentLogToken ${input:assessmentLogToken} -SendgridSecretName ${input:sendgridSecretName} -SmtpPasswordSecretName ${input:smtpPasswordSecretName}",
+      "problemMatcher": []
+    },
+    {
+      "label": "GCP: Cloud Run Logs (Tail)",
+      "type": "shell",
+      "command": "gcloud beta run services logs tail ${input:serviceName} --region ${input:region}",
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "GCP: Describe Service",
+      "type": "shell",
+      "command": "gcloud run services describe ${input:serviceName} --region ${input:region}",
+      "problemMatcher": []
+    },
+    {
+      "label": "GCP: Open Service URL",
+      "type": "shell",
+      "command": "$url = gcloud run services describe ${input:serviceName} --region ${input:region} --format=\"value(status.url)\"; Start-Process $url",
+      "problemMatcher": []
+    },
+    {
+      "label": "GCP: Open Cloud Run Console",
+      "type": "shell",
+      "command": "Start-Process \"https://console.cloud.google.com/run/detail/${input:region}/${input:serviceName}/revisions?project=${input:projectId}\"",
+      "problemMatcher": []
+    },
+    {
+      "label": "GCP: Open Logs Explorer",
+      "type": "shell",
+      "command": "Start-Process \"https://console.cloud.google.com/logs/query;query=resource.type%3D%5C%22cloud_run_revision%5C%22%20resource.labels.service_name%3D%5C%22${input:serviceName}%5C%22?project=${input:projectId}\"",
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "gcpAction",
+      "type": "pickString",
+      "description": "Pilih action CLI",
+      "options": [
+        "setup",
+        "secret",
+        "deploy",
+        "describe",
+        "logs",
+        "url",
+        "check"
+      ],
+      "default": "describe"
+    },
+    {
+      "id": "projectId",
+      "type": "promptString",
+      "description": "Google Cloud Project ID",
+      "default": ""
+    },
+    {
+      "id": "region",
+      "type": "promptString",
+      "description": "Cloud Run region",
+      "default": "asia-southeast2"
+    },
+    {
+      "id": "serviceName",
+      "type": "promptString",
+      "description": "Cloud Run service name",
+      "default": "webaihebat"
+    },
+    {
+      "id": "repository",
+      "type": "promptString",
+      "description": "Artifact Registry repository",
+      "default": "webaihebat"
+    },
+    {
+      "id": "mailProvider",
+      "type": "pickString",
+      "description": "Email provider",
+      "options": [
+        "smtp",
+        "sendgrid"
+      ],
+      "default": "smtp"
+    },
+    {
+      "id": "smtpHost",
+      "type": "promptString",
+      "description": "SMTP host",
+      "default": "smtp.gmail.com"
+    },
+    {
+      "id": "smtpPort",
+      "type": "promptString",
+      "description": "SMTP port",
+      "default": "587"
+    },
+    {
+      "id": "smtpEncryption",
+      "type": "promptString",
+      "description": "SMTP encryption: tls or ssl",
+      "default": "tls"
+    },
+    {
+      "id": "smtpUsername",
+      "type": "promptString",
+      "description": "SMTP username (email)",
+      "default": "admin@mamastoria.com"
+    },
+    {
+      "id": "smtpPasswordSecretName",
+      "type": "promptString",
+      "description": "Secret Manager secret name for SMTP password",
+      "default": "smtp-password"
+    },
+    {
+      "id": "sendgridSecretName",
+      "type": "promptString",
+      "description": "Secret Manager secret name for SendGrid",
+      "default": "sendgrid-api-key"
+    },
+    {
+      "id": "contactEmail",
+      "type": "promptString",
+      "description": "Contact receiving email",
+      "default": "admin@aihebat.com"
+    },
+    {
+      "id": "newsletterEmail",
+      "type": "promptString",
+      "description": "Newsletter receiving email",
+      "default": "admin@aihebat.com"
+    },
+    {
+      "id": "senderEmail",
+      "type": "promptString",
+      "description": "Sender email",
+      "default": "no-reply@aihebat.com"
+    },
+    {
+      "id": "senderName",
+      "type": "promptString",
+      "description": "Sender display name",
+      "default": "AIHebat Web"
+    },
+    {
+      "id": "allowedHosts",
+      "type": "promptString",
+      "description": "Allowed hosts (comma separated)",
+      "default": "aihebat.com,www.aihebat.com"
+    },
+    {
+      "id": "enableFirestoreLog",
+      "type": "promptString",
+      "description": "Enable Firestore logs: true or false",
+      "default": "true"
+    },
+    {
+      "id": "firestoreContactCollection",
+      "type": "promptString",
+      "description": "Firestore collection for contact form",
+      "default": "contact_submissions"
+    },
+    {
+      "id": "firestoreNewsletterCollection",
+      "type": "promptString",
+      "description": "Firestore collection for newsletter form",
+      "default": "newsletter_subscriptions"
+    },
+    {
+      "id": "mailSecretValue",
+      "type": "promptString",
+      "description": "Secret value (SMTP app password or SendGrid API key)",
+      "password": true
+    },
+    {
+      "id": "assessmentLogToken",
+      "type": "promptString",
+      "description": "Token untuk endpoint forms/assessment-log.php",
+      "default": "disabled"
+    }
+  ]
+}

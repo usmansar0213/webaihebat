@@ -1,8 +1,7 @@
-name: Deploy AIHebat Website via Actions
+name: Legacy - Deploy AIHebat Website via Actions (manual only)
 
 on:
-  push:
-    branches: [main]
+  workflow_dispatch:
 
 jobs:
   deploy:
